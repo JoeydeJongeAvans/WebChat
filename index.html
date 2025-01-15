@@ -3,17 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mijn Webchat Pagina</title>
+    <title>Webchat Test Pagina</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
             padding: 20px;
             background-color: #f0f0f0;
-        }
-        h1 {
-            color: #333;
-            text-align: center;
         }
         .content {
             max-width: 800px;
@@ -22,6 +18,12 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        #chat-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
         }
     </style>
 </head>
@@ -32,8 +34,37 @@
         <p>De webchat zou rechtsonder in beeld moeten verschijnen.</p>
     </div>
 
-    <!-- Webchat script -->
-    <script type="module" crossorigin="anonymous" src='https://webchat.digitalcx.com/inline.js' 
-    onload="cmwc.add('42772b59-b2d5-47c7-8f0a-42b57a809a6d').install();"></script>
+    <div id="chat-container"></div>
+
+    <!-- Webchat script met verschillende initialisatie opties -->
+    <script type="module" crossorigin="anonymous" src='https://webchat.digitalcx.com/inline.js'></script>
+    <script>
+        // Optie 1: Basis initialisatie
+        document.addEventListener('DOMContentLoaded', function() {
+            cmwc.add('42772b59-b2d5-47c7-8f8a-42b57a889a6d').install({
+                container: '#chat-container'
+            });
+        });
+
+        // Optie 2: Met vertraging (uncomment om te testen)
+        /*
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                cmwc.add('42772b59-b2d5-47c7-8f8a-42b57a889a6d').install({
+                    container: '#chat-container'
+                });
+            }, 1000);
+        });
+        */
+
+        // Optie 3: Window onload (uncomment om te testen)
+        /*
+        window.onload = function() {
+            cmwc.add('42772b59-b2d5-47c7-8f8a-42b57a889a6d').install({
+                container: '#chat-container'
+            });
+        }
+        */
+    </script>
 </body>
 </html>
