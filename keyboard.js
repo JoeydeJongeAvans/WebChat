@@ -1,6 +1,7 @@
 const keyboardToggle = document.getElementById('keyboardToggle');
 const keyboard = document.getElementById('keyboard');
 const chatInput = document.getElementById('chat-input');
+const messagesContainer = document.getElementById('messages');
 let isShiftActive = false;
 
 // Toetsenbord layout
@@ -11,6 +12,23 @@ const keyboardLayout = [
     ['shift', 'z', 'x', 'c', 'v', 'b', 'n', 'm', 'backspace'],
     ['space', 'enter']
 ];
+
+function addMessage(text) {
+    const messageElement = document.createElement('div');
+    messageElement.className = 'message';
+    messageElement.textContent = text;
+    messagesContainer.appendChild(messageElement);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+}
+
+function handleEnter() {
+    const text = chatInput.value.trim();
+    if (text) {
+        addMessage(text);
+        chatInput.value = '';
+        keyboard.style.display = 'none';
+    }
+}
 
 // Toetsenbord opbouwen
 function createKeyboard() {
@@ -75,12 +93,7 @@ document.querySelectorAll('.key').forEach(key => {
                 break;
                 
             case 'enter':
-                // Simuleer form submit
-                const form = chatInput.closest('form');
-                if (form) {
-                    form.dispatchEvent(new Event('submit'));
-                }
-                keyboard.style.display = 'none';
+                handleEnter();
                 break;
                 
             case 'space':
@@ -99,6 +112,14 @@ document.querySelectorAll('.key').forEach(key => {
         
         chatInput.focus();
     });
+});
+
+// Enter toets op fysiek toetsenbord
+chatInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        handleEnter();
+    }
 });
 
 // Sluit toetsenbord met Escape toets

@@ -4,6 +4,36 @@
     margin: 20px auto;
 }
 
+.messages-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.message {
+    padding: 10px 15px;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    max-width: 80%;
+    word-break: break-word;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .input-wrapper {
     position: relative;
     display: flex;
